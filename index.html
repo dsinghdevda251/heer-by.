@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Birthday Heer! 🎂</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- Audio Elements -->
+    <audio id="bgMusic" loop>
+        <!-- Changed to local happy birthday song -->
+        <source src="nastelbom-happy-birthday-471481.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clappingSound">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="popSound">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Background Elements -->
+    <div class="night-sky">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="moon"></div>
+    </div>
+    <div id="rosePetalsContainer" class="rose-petals-container"></div>
+    <div id="balloonContainer" class="balloon-container"></div>
+
+    <!-- 1. Intro Section -->
+    <div id="introSection" class="intro-screen">
+        <div class="intro-content">
+            <h1 class="intro-title">A Magical Surprise Awaits...</h1>
+            <div class="floating-hearts-intro">❤️ 💖 💜</div>
+            <button id="startBtn" class="glow-btn-lg">Tap to Start the Surprise ❤️</button>
+        </div>
+    </div>
+
+    <!-- Main Content Container (Hidden Initially) -->
+    <div id="mainContent" class="main-container hidden">
+        
+        <!-- 2. Birthday Wish Header -->
+        <header id="wishSection" class="wish-header hidden">
+            <h1 class="glow-text-header">Happy Birthday Heer 🎉</h1>
+            <div id="sparklesContainer"></div>
+            <p class="wish-subtitle" id="dynamicWish"></p>
+        </header>
+
+        <!-- 3. Cake Celebration -->
+        <section id="cakeSection" class="cake-section hidden">
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="plate"></div>
+                    <div class="layer layer-bottom"></div>
+                    <div class="layer layer-middle"></div>
+                    <div class="layer layer-top"></div>
+                    <div class="icing"></div>
+                    <div class="drip drip1"></div>
+                    <div class="drip drip2"></div>
+                    <div class="drip drip3"></div>
+                    
+                    <!-- Candles -->
+                    <div class="candles-container">
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                    <div class="smoke hidden"></div>
+                </div>
+            </div>
+            
+            <div class="cake-controls">
+                <button id="blowCandlesBtn" class="action-btn">Blow the Candles 🌬️</button>
+                <button id="cutCakeBtn" class="action-btn hidden">Cut the Cake 🎂</button>
+            </div>
+            <div id="cakeMessage" class="cake-msg hidden">Yay! Happy Birthday! 🥳</div>
+        </section>
+
+        <!-- 4. Photo Gallery Section -->
+        <section class="gallery-section hidden" id="gallerySection">
+            <h2>Beautiful Memories 📸</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 6 Images (PNG Support) -->
+                <div class="gallery-item" onclick="openPhotoPopup('images/1.png', 'Memory 1 ❤️')">
+                    <img src="images/1.png" alt="Memory 1" onerror="this.onerror=null;this.src='images/1.jpg';"> 
+                </div>
+                <div class="gallery-item" onclick="openPhotoPopup('images/2.png', 'Memory 2 ✨')">
+                    <img src="images/2.png" alt="Memory 2" onerror="this.onerror=null;this.src='images/2.jpg';">
+                </div>
+                <div class="gallery-item" onclick="openPhotoPopup('images/3.png', 'Memory 3 💖')">
+                    <img src="images/3.png" alt="Memory 3" onerror="this.onerror=null;this.src='images/3.jpg';">
+                </div>
+                <div class="gallery-item" onclick="openPhotoPopup('images/4.png', 'Memory 4 🌸')">
+                    <img src="images/4.png" alt="Memory 4" onerror="this.onerror=null;this.src='images/4.jpg';">
+                </div>
+                <div class="gallery-item" onclick="openPhotoPopup('images/5.png', 'Memory 5 🎂')">
+                    <img src="images/5.png" alt="Memory 5" onerror="this.onerror=null;this.src='images/5.jpg';">
+                </div>
+                <div class="gallery-item" onclick="openPhotoPopup('images/6.png', 'Memory 6 🌟')">
+                    <img src="images/6.png" alt="Memory 6" onerror="this.onerror=null;this.src='images/6.jpg';">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Slideshow Section -->
+        <section class="slideshow-section hidden" id="slideshowSection">
+            <h2>Our Journey ✨</h2>
+            <div class="slideshow-container" id="slideshowContainer">
+                <div class="slide fade">
+                    <img src="images/1.png" alt="Slide 1" onerror="this.onerror=null;this.src='images/1.jpg';">
+                </div>
+                <div class="slide fade">
+                    <img src="images/2.png" alt="Slide 2" onerror="this.onerror=null;this.src='images/2.jpg';">
+                </div>
+                <div class="slide fade">
+                    <img src="images/3.png" alt="Slide 3" onerror="this.onerror=null;this.src='images/3.jpg';">
+                </div>
+                <div class="slide fade">
+                    <img src="images/4.png" alt="Slide 4" onerror="this.onerror=null;this.src='images/4.jpg';">
+                </div>
+                <div class="slide fade">
+                    <img src="images/5.png" alt="Slide 5" onerror="this.onerror=null;this.src='images/5.jpg';">
+                </div>
+                <div class="slide fade">
+                    <img src="images/6.png" alt="Slide 6" onerror="this.onerror=null;this.src='images/6.jpg';">
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Final Letter Section -->
+        <section class="letter-section hidden" id="letterSection">
+            <div class="paper">
+                <div class="letter-content" id="typingLetter"></div>
+                <p id="letterSignature" class="letter-signature hidden">
+                    Once again Happy Birthday Heer 🎂❤️<br>
+                    With lots of love and best wishes from<br>
+                    <strong>Rajveer, Dev, Ankit, Bhavesh, Shourya and Izumi</strong>
+                </p>
+            </div>
+            <button id="revealSurpriseTrigger" class="glow-btn-lg hidden" style="margin-top: 2rem;">Open Your Final Surprise 🎁</button>
+        </section>
+
+    </div>
+
+    <!-- Photo Popup Overlay -->
+    <div id="photoPopup" class="popup-overlay hidden">
+        <div class="popup-backdrop" onclick="closePhotoPopup()"></div>
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePhotoPopup()">&times;</span>
+            <div id="popupImageContainer" class="popup-img-container">
+                <!-- Image goes here -->
+            </div>
+            <p id="popupMessage" class="popup-message">A wonderful moment! ❤️</p>
+            <div class="popup-hearts">💖 💝 💘</div>
+        </div>
+    </div>
+
+    <!-- Final Surprise Overlay -->
+    <div id="finalOverlay" class="final-overlay hidden">
+        <div class="final-content">
+            <h1 class="final-title">Happy Birthday Heer! ❤️</h1>
+            <p class="final-subtitle">Wishing you a lifetime of magic and joy.</p>
+            <div class="final-wishes-list">
+                <p class="wish-item">May your life always be full of happiness.</p>
+                <p class="wish-item">May all your dreams come true.</p>
+                <p class="wish-item">Your smile makes everything brighter.</p>
+                <p class="wish-item">You deserve endless love and success.</p>
+                <p class="wish-item">May every moment of your life be magical.</p>
+            </div>
+            <button onclick="location.reload()" class="small-btn">Replay ✨</button>
+        </div>
+        <div id="fireworksContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
